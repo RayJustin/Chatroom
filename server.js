@@ -45,6 +45,6 @@ io.on('connection', function(socket){
 
 app.use(express.static('public'));
 
-server.listen(8080, function(){
+server.listen(process.env.PORT || 8080, function(){
 	console.log('Listening on Port: 8080');
 });
