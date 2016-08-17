@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/styles.css">
+	<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+	<script src='js/main.js'></script>
+	<script src='/socket.io/socket.io.js'></script>
+	<title>Chatroom</title>
+</head>
+<body>
+	<section class="chatSection">
+		<div>
+			<h1 class="title">Chatroom!</h1>
+		</div>
+		<div class="inputCont">
+			<input placeholder="Enter Message Here" id="chat" type="text">
+		</div>
+		<div id="messages"></div>
+	</section>
+	<aside class="usersOnline">
+		<div>
+			<h2>Users Online:</h2>
+			<div class="users">
+			<!--Users-->
+			</div>
+		</div>
+	</aside>
+</body>
+</html>
