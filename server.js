@@ -5,8 +5,7 @@ var app = express();
 var server = http.Server(app);
 var io = socket_io(server);
 
-// Tracks how many users are online
-var online = 0;
+
 // Socket.id's are held here
 var collection = [];
 // Socket.username's are held here
@@ -15,7 +14,6 @@ var userNames = [];
 io.on('connection', function(socket){
 
 	socket.on('newUser', function(user){
-		online = online + 1;
 		console.log(user + ' Joined!');
 		collection.push(socket.id);
 		userNames.push(user);
@@ -27,11 +25,19 @@ io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){
 		collection.splice(collection.indexOf(socket.id), 1);
-		userNames.splice(userNames.indexOf(socket.username, 1));
-		online = online - 1;
 
-		socket.emit('list', userNames);
+		for(var i = 0; i < userNames.length; i++){
+			if(userNames[i] === socket.username){
+				userNames.splice(i, 1);
+				break;
+			}
+		}
+		socket.broadcast.emit('list', userNames);
 		socket.broadcast.emit('userLeft', socket.username);
+	});
+
+	socket.on('list', function(){
+		socket.broadcast.emit('list', userNames);
 	});
 
 	socket.on('message', function(message){

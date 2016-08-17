@@ -7,10 +7,11 @@ $(document).ready(function(){
 	var usersOnline = $('.usersOnline');
 
 	var addMessage = function(message, name){
+		// Incoming msgs have a name, outgoing don't.
 		if(name === undefined){
 			name = 'You';
 		}
-		messages.append('<div class="message">'+ name + ': ' + message + '</div>');
+		messages.append('<div class="message"><strong>'+ name + ':</strong> ' + message + '</div>');
 	}
 
 	var addUser = function(user){
@@ -37,10 +38,9 @@ $(document).ready(function(){
 
 	socket.on('connect', function(){
 		var user = prompt('Welcome. Please enter your name.');
-		// Need to add something so the user cant be null or blank
 		addUser(user);
 		socket.emit('newUser', user);
-		socket.emit('list', user);
+		socket.emit('list');
 	});
 
 	socket.on('list', updateList);
